@@ -1,0 +1,118 @@
+<html>
+
+<head>
+  <title>twitter</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar navbar-expand-lg bg-info text-white">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="twitter.html">TWITTER</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Tweets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="register.html">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="userFullname" style="margin-left: 600px;"></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="logout()" style="margin-left: 6px;">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="container mt-3" style="margin-left: 200px;">
+    <form name="myForm">
+      <div class="row">
+        <div class="col-9">
+          <h3 id="userName"></h3>
+          <br>
+          <label class="form-label">Email:</label><br>
+          <input type="email" id="email"
+            style="border: none; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></input><br>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-9">
+          <br><label class="form-label">FullName:</label><br>
+          <input type="text" id="fullName"
+            style="border: none; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></input>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <br> <label class="form-label">Country:</label><br>
+          <select id="country" class="form-select"
+            style="border: none; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+            <option value="Kazahstan"
+              style="border: none; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+              Kazahstan
+            </option>
+            <option value="USA">
+              USA
+            </option>
+            <option value="Russia">
+              Russia
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <br> <label class="form-label">Birthdate:</label><br>
+          <input type="date" id="date"
+            style="border: none; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; "></input>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+
+</body>
+<script>
+  function logout() {
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userPassword');
+    window.close(this);
+  }
+  function profile() {
+    let userEm = localStorage.getItem('userEmail');
+    email.value = userEm;
+
+    let userArrJSON = localStorage.getItem("usersLocal");
+    let userArrObj = JSON.parse(userArrJSON);
+    for (let i = 0; i < userArrObj.length; i++) {
+      if (userArrObj[i].email == userEm) {
+        userName.innerText = "Welcome " + userArrObj[i].fullname;
+        userFullname.innerText = userArrObj[i].fullname;
+        fullName.value = userArrObj[i].fullname;
+        country.value = userArrObj[i].country;
+        date.value = userArrObj[i].birthdate;
+      }
+    }
+  }
+  profile();
+</script>
+
+</html>
